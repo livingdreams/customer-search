@@ -16,12 +16,15 @@ if($visible):
 
 
 <div class="cs_wrapper">
+    <div class="et_pb_row">
+        <div class="et_pb_column">
+            <h2><?= $_GET['action'] == 'edit-customer' ? 'Edit' : 'New' ?> Client</h2>
 
-    <h1><?= $_GET['action'] == 'edit-customer' ? 'Edit' : 'New' ?> Client</h1>
-
-    <div class="cs_block">
-        <div class="errorMessage"></div>
-        <div class="successMessage"></div>
+            <div class="cs_block">
+                <div class="errorMessage"></div>
+                <div class="successMessage"></div>
+            </div>
+        </div>
     </div>
 
     <form id="customer-reg" method="<?= $_GET['action'] == 'edit-customer' ? 'edit_frontend' : 'register_frontend' ?>">
@@ -32,31 +35,52 @@ if($visible):
             <input type="hidden" id="createdOn" name="created_on" value="<?= date('Y-m-d h:i') ?>"/>
             <input type="hidden" id="owner" name="owner" value="<?= get_current_user_id() ?>"/>
         <?php endif; ?>
-        <table class="form-table">
-            <tbody>
-                <tr>
-                    <th><label class="required-cs">First Name</label></th>
-                    <td><input class="regular-text code" name="firstname" type="text" id="firstname" required="required" value="<?= $customer_row->firstname; ?>"/></td>
-                </tr>
-                <tr>
-                    <th><label class="required-cs">Last Name</label></th>
-                    <td><input class="regular-text" name="lastname" type="text" id="lastname" required="required" value="<?= $customer_row->lastname; ?>"/></td>
-                </tr>
-                <tr>
-                    <th><label>M.I</label></th>
-                    <td><input class="regular-text" name="m_i" type="text" id="m_i"  value="<?= $customer_row->m_i; ?>"/></td>
-                </tr>
-                <tr>
-                    <th><label>Street Address </label></th>
-                    <td><textarea class="regular-text" name="street_address" type="textarea" id="street_address"  rows="5" cols="53"><?php if(isset($customer_row->street_address)){ echo $customer_row->street_address; } ?></textarea></td>
-                </tr>
-                <tr>
-                    <th><label>City</label></th>
-                    <td><input class="regular-text" name="city" type="text" id="city" value="<?= $customer_row->city; ?>" /></td>
-                </tr>
-                <tr>
-                    <th><label>State</label></th>
-                    <td>
+            
+         <div class="">	
+             
+             <div class="et_pb_row">
+                <div class="et_pb_column et_pb_column_1_2">
+                    <div class="">
+                        <label class="required-cs">First Name</label>
+                        <input class="regular-text code" name="firstname" type="text" id="firstname" required="required" value="<?= $customer_row->firstname; ?>"/>
+                    </div>
+                </div>
+
+                <div class="et_pb_column et_pb_column_1_2">
+                    <div class="">
+                        <label class="required-cs">Last Name</label>
+                        <input class="regular-text" name="lastname" type="text" id="lastname" required="required" value="<?= $customer_row->lastname; ?>"/>
+                    </div>
+                </div> 
+            </div> 
+             
+             <div class="et_pb_row">
+                <div class="et_pb_column et_pb_column_1_2">
+                    <div class="">
+                        <label class="">M.I</label>
+                        <input class="regular-text code" name="firstname" type="text" id="firstname" required="required" value="<?= $customer_row->firstname; ?>"/>
+                    </div>
+                </div>
+
+                <div class="et_pb_column et_pb_column_1_2">
+                    <div class="">
+                        <label class="">Street Address</label>
+                        <textarea class="regular-text" name="street_address" type="textarea" id="street_address"  style="resize:none;" rows="2" cols="53"><?php if(isset($customer_row->street_address)){ echo $customer_row->street_address; } ?></textarea>
+                    </div>
+                </div> 
+            </div> 
+             
+             <div class="et_pb_row">
+                <div class="et_pb_column et_pb_column_1_2">
+                    <div class="">
+                        <label class="">City</label>
+                        <input class="regular-text" name="city" type="text" id="city" value="<?= $customer_row->city; ?>" />
+                    </div>
+                </div>
+
+                <div class="et_pb_column et_pb_column_1_2">
+                    <div class="">
+                        <label class="">State</label>
                         <?php
                         //Define the US State Array to be used to generate the STATE select box
                         $usStates = array(
@@ -124,15 +148,21 @@ if($visible):
                             }
                         ?>
                         </select> 
-                    </td>
-                </tr>
-                <tr>
-                    <th><label class="required-cs">Zip Code</label></th>
-                    <td><input class="regular-text" name="zipcode" type="text" id="zipcode" required="required" value="<?= $customer_row->zipcode; ?>"/></td>
-                </tr>
-                <tr>
-                    <th><label>Issue</label></th>
-                    <td>
+                    </div>
+                </div> 
+            </div> 
+             
+             <div class="et_pb_row">
+                <div class="et_pb_column et_pb_column_1_2">
+                    <div class="">
+                        <label class="required-cs">Zip Code</label>
+                        <input class="regular-text" name="zipcode" type="text" id="zipcode" required="required" value="<?= $customer_row->zipcode; ?>"/>
+                    </div>
+                </div>
+
+                <div class="et_pb_column et_pb_column_1_2">
+                    <div class="">
+                        <label class="">Issue</label>
                         <?php
                         $db_issue_id = $customer_row->issue_id; 
                         ?>
@@ -149,18 +179,20 @@ if($visible):
                             <?php }
                         ?> 
                          </select> 
-                    </td>
-                </tr>
-                
-                <tr>
-                    <th><label>&nbsp;</label></th>
-                    <td>
+                    </div>
+                </div> 
+            </div> 
+             
+             <div class="et_pb_row">
+                <div class="et_pb_column et_pb_column_1_2">
+                    <div class="">
                         <button id="btnACsubmit"  type="submit" name="btnACsubmit" class="button-primary "><?= $_GET['action'] == 'edit-customer' ? 'Update' : 'Create' ?> Customer</button>
                         <img id="loading" src="<?= admin_url('images/loading.gif') ?>" title="loading" style="display:none;"/>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+                </div>
+            </div> 
+             
+         </div>
     </form>
 </div>
 <?php endif; ?>

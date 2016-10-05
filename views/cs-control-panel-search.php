@@ -22,108 +22,132 @@ if (isset($_REQUEST)) {
 if (($existing_points > 0) && ($existing_points >= $point)) {
     ?>
     <div class="cs_wrapper">
-        <form id="posts-filter" method="post" action="">			
-            <p>
-                <label>Search Customers:</label>   
-            </p>
-            <table class="form-table">
-                <tbody>
-                    <tr>
-                        <th><label class="required-cs">First Name</label></th>
-                        <td><input id="post-search-input" type="text" value="" name="firstname" required="required" size="30"></td>
-                    </tr>
-                    <tr>
-                        <th><label class="required-cs">Last Name</label></th>
-                        <td><input id="post-search-input" type="text" value=""  name="lastname" required="required" size="30"></td>
-                    </tr>
-                    <tr>
-                        <th><label>M.I</label></th>
-                        <td><input id="post-search-input" type="text" value="" name="m_i" size="30"></td>
-                    </tr>
-                    <tr>
-                        <th><label>Street Address </label></th>
-                        <td> <input id="post-search-input" type="text" value=""  name="streetaddress" size="30"></td>
-                    </tr>
-                    <tr>
-                        <th><label>City</label></th>
-                        <td><input id="post-search-input" type="text" value=""  name="city" size="30"></td>
-                    </tr>
-                    <tr>
-                        <th><label>State</label></th>
-                        <td><select name="state"  id="post-search-input">
-                                <option  value="">Select State</option>
-                                <?php
-                                $usStates = array(
-                                    "AL" => "Alabama",
-                                    "AK" => "Alaska",
-                                    "AZ" => "Arizona",
-                                    "AR" => "Arkansas",
-                                    "CA" => "California",
-                                    "CO" => "Colorado",
-                                    "CT" => "Connecticut",
-                                    "DE" => "Delaware",
-                                    "FL" => "Florida",
-                                    "GA" => "Georgia",
-                                    "HI" => "Hawaii",
-                                    "ID" => "Idaho",
-                                    "IL" => "Illinois",
-                                    "IN" => "Indiana",
-                                    "IA" => "Iowa",
-                                    "KS" => "Kansas",
-                                    "KY" => "Kentucky",
-                                    "LA" => "Louisiana",
-                                    "ME" => "Maine",
-                                    "MD" => "Maryland",
-                                    "MA" => "Massachusetts",
-                                    "MI" => "Michigan",
-                                    "MN" => "Minnesota",
-                                    "MS" => "Mississippi",
-                                    "MO" => "Missouri",
-                                    "MT" => "Montana",
-                                    "NE" => "Nebraska",
-                                    "NV" => "Nevada",
-                                    "NH" => "New Hampshire",
-                                    "NJ" => "New Jersey",
-                                    "NM" => "New Mexico",
-                                    "NY" => "New York",
-                                    "NC" => "North Carolina",
-                                    "ND" => "North Dakota",
-                                    "OH" => "Ohio",
-                                    "OK" => "Oklahoma",
-                                    "OR" => "Oregon",
-                                    "PA" => "Pennsylvania",
-                                    "RI" => "Rhode Island",
-                                    "SC" => "South Carolina",
-                                    "SD" => "South Dakota",
-                                    "TN" => "Tennessee",
-                                    "TX" => "Texas",
-                                    "UT" => "Utah",
-                                    "VT" => "Vermont",
-                                    "VA" => "Virginia",
-                                    "WA" => "Washington",
-                                    "WV" => "West Virginia",
-                                    "WI" => "Wisconsin",
-                                    "WY" => "Wyoming"
-                                );
+        <form id="posts-filter" method="post" action="">
+            <div class="et_pb_row">
+                <div class="et_pb_column">
+                    <h2>Search Customers:</h2>
+                </div>
+            </div>
+            
+            <div class="">	
 
-                                foreach ($usStates as $state) {
-                                    $state_name = $state;
-                                    ?>
-                                    <option value="<?php echo $state_name; ?>"><?php echo $state_name; ?></option>
-                                    <?php
-                                }
-                                ?>
-                            </select></td>
-                    </tr> 
-                    <tr>
-                        <th><label>&nbsp;</label></th>
-                        <td>
-                            <input class="button" type="submit" value="Search Customers" id="search-submit">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
+                 <div class="et_pb_row">
+                     <div class="et_pb_column et_pb_column_1_2">
+                         <div class="">
+                             <label class="required-cs">First Name</label>
+                             <input id="post-search-input" type="text" value="" name="firstname" required="required" size="30">
+                         </div>
+                     </div>
+
+                     <div class="et_pb_column et_pb_column_1_2">
+                         <div class="">
+                             <label class="required-cs">Last Name</label>
+                             <input id="post-search-input" type="text" value=""  name="lastname" required="required" size="30">
+                         </div>
+                     </div> 
+                 </div> 
+
+                <div class="et_pb_row">
+                     <div class="et_pb_column et_pb_column_1_2">
+                         <div class="">
+                             <label class="">M.I</label>
+                             <input id="post-search-input" type="text" value="" name="m_i" size="30">
+                         </div>
+                     </div>
+
+                     <div class="et_pb_column et_pb_column_1_2">
+                         <div class="">
+                             <label class="">Street Address</label>
+                             <textarea id="post-search-input" type="textarea" name="streetaddress" cols="53" style="resize:none;" rows="2"></textarea>
+                         </div>
+                     </div> 
+                 </div> 
+
+                <div class="et_pb_row">
+                     <div class="et_pb_column et_pb_column_1_2">
+                         <div class="">
+                             <label class="">City</label>
+                             <input id="post-search-input" type="text" value=""  name="city" size="30">
+                         </div>
+                     </div>
+
+                     <div class="et_pb_column et_pb_column_1_2">
+                         <div class="">
+                             <label class="">State</label>
+                             <select name="state"  id="post-search-input">
+                                     <option  value="">Select State</option>
+                                     <?php
+                                     $usStates = array(
+                                         "AL" => "Alabama",
+                                         "AK" => "Alaska",
+                                         "AZ" => "Arizona",
+                                         "AR" => "Arkansas",
+                                         "CA" => "California",
+                                         "CO" => "Colorado",
+                                         "CT" => "Connecticut",
+                                         "DE" => "Delaware",
+                                         "FL" => "Florida",
+                                         "GA" => "Georgia",
+                                         "HI" => "Hawaii",
+                                         "ID" => "Idaho",
+                                         "IL" => "Illinois",
+                                         "IN" => "Indiana",
+                                         "IA" => "Iowa",
+                                         "KS" => "Kansas",
+                                         "KY" => "Kentucky",
+                                         "LA" => "Louisiana",
+                                         "ME" => "Maine",
+                                         "MD" => "Maryland",
+                                         "MA" => "Massachusetts",
+                                         "MI" => "Michigan",
+                                         "MN" => "Minnesota",
+                                         "MS" => "Mississippi",
+                                         "MO" => "Missouri",
+                                         "MT" => "Montana",
+                                         "NE" => "Nebraska",
+                                         "NV" => "Nevada",
+                                         "NH" => "New Hampshire",
+                                         "NJ" => "New Jersey",
+                                         "NM" => "New Mexico",
+                                         "NY" => "New York",
+                                         "NC" => "North Carolina",
+                                         "ND" => "North Dakota",
+                                         "OH" => "Ohio",
+                                         "OK" => "Oklahoma",
+                                         "OR" => "Oregon",
+                                         "PA" => "Pennsylvania",
+                                         "RI" => "Rhode Island",
+                                         "SC" => "South Carolina",
+                                         "SD" => "South Dakota",
+                                         "TN" => "Tennessee",
+                                         "TX" => "Texas",
+                                         "UT" => "Utah",
+                                         "VT" => "Vermont",
+                                         "VA" => "Virginia",
+                                         "WA" => "Washington",
+                                         "WV" => "West Virginia",
+                                         "WI" => "Wisconsin",
+                                         "WY" => "Wyoming"
+                                     );
+
+                                     foreach ($usStates as $state) {
+                                         $state_name = $state;
+                                         ?>
+                                         <option value="<?php echo $state_name; ?>"><?php echo $state_name; ?></option>
+                                         <?php
+                                     }
+                                     ?>
+                                 </select>
+                         </div>
+                     </div> 
+                 </div> 
+
+                <div class="et_pb_row">
+                    <input class="button" type="submit" value="Search Customers" id="search-submit">
+                 </div> 
+
+            </div>
+       </form>
 
         <div id = "poststuff">
             <?php
