@@ -58,7 +58,7 @@ if($visible):
                 <div class="et_pb_column et_pb_column_1_2">
                     <div class="">
                         <label class="">M.I</label>
-                        <input class="regular-text code" name="firstname" type="text" id="firstname" required="required" value="<?= $customer_row->firstname; ?>"/>
+                        <input class="regular-text code" name="m_i" type="text" id="m_i" value="<?= $customer_row->m_i; ?>"/>
                     </div>
                 </div>
 
