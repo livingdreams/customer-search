@@ -157,10 +157,13 @@ if (!function_exists('cs_ajax_callback')) {
                 parse_str($_REQUEST['data'], $data);
 
                 $business_name = $data['cus_business_name'];
-                $first_name = $data['cus_first_name'];
-                $last_name = $data['cus_last_name'];
-                $issue = $data['issue_id'];
-                $city = $data['cus_city'];
+                $first_name    = $data['cus_first_name'];
+                $last_name     = $data['cus_last_name'];
+                $issue         = $data['issue_id'];
+                $city          = $data['cus_city'];
+                $mailing_addrs = $data['cus_mailing_address'];
+                $email_addrs   = $data['cus_email_address'];
+                $phone_num     = $data['cus_phone'];
 
                 $customer = new CS_CUSTOMER();
                 $match_user_meta = $customer->getUserMeta($business_name);
@@ -192,11 +195,14 @@ if (!function_exists('cs_ajax_callback')) {
                                         'owner' => $user_id,
                                         'issue_id' => $issue,
                                         'city' => $city,
+                                        'mailingaddress' => $mailing_addrs,
+                                        'emailaddress' => $email_addrs,
+                                        'phonenumber' => $phone_num,
                                         'created_on' => date("Y-m-d"),
                                         'to_be_deleted' => date('Y-m-d', strtotime("+15 days")),
                                     );
 
-                                    $condition = "lastname = '$last_name' AND firstname = '$first_name' AND businessname = '$business_name' AND city = '$city' AND status = 0";
+                                    $condition = "lastname = '$last_name' AND firstname = '$first_name' AND businessname = '$business_name' AND city = '$city' AND mailingaddress = '$mailing_addrs' AND emailaddress = '$email_addrs' AND phonenumber = '$phone_num' AND status = 0";
 
                                     $is_added = $customer_dispute->get_dispute_row($condition);
                                     if ($is_added == false) {
@@ -210,7 +216,7 @@ if (!function_exists('cs_ajax_callback')) {
 
                                             $customer->update_is_dispute($data_dispute); //Update customer table entry
                                             $data['status'] = 2;
-                                            $data['message'] = "Thank you An E-mail has been sent to the Business Contact person for further actions";
+                                            $data['message'] = "Thank you. An e-mail has been sent to the Business Contact person for further actions";
                                             
                                             //$message = "Hello World";
                                             ob_start();

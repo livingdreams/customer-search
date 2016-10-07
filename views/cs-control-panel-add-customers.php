@@ -73,14 +73,14 @@ if($visible):
              <div class="et_pb_row">
                 <div class="et_pb_column et_pb_column_1_2">
                     <div class="">
-                        <label class="">City</label>
-                        <input class="regular-text" name="city" type="text" id="city" value="<?= $customer_row->city; ?>" />
+                        <label class="required-cs">City</label>
+                        <input class="regular-text" name="city" type="text" id="city" required="required" value="<?= $customer_row->city; ?>" />
                     </div>
                 </div>
 
                 <div class="et_pb_column et_pb_column_1_2">
                     <div class="">
-                        <label class="">State</label>
+                        <label class="required-cs">State</label>
                         <?php
                         //Define the US State Array to be used to generate the STATE select box
                         $usStates = array(
@@ -137,7 +137,7 @@ if($visible):
                         );
                         $db_state = $customer_row->state; 
                         ?>
-                        <select name="state"  id="state">
+                        <select name="state"  id="state" required="required">
                         <option  value="">Select State</option>
                         <?php
                             foreach ($usStates as $state) {
@@ -155,18 +155,18 @@ if($visible):
              <div class="et_pb_row">
                 <div class="et_pb_column et_pb_column_1_2">
                     <div class="">
-                        <label class="required-cs">Zip Code</label>
-                        <input class="regular-text" name="zipcode" type="text" id="zipcode" required="required" value="<?= $customer_row->zipcode; ?>"/>
+                        <label class="">Zip Code</label>
+                        <input class="regular-text" name="zipcode" type="text" id="zipcode" value="<?= $customer_row->zipcode; ?>"/>
                     </div>
                 </div>
 
                 <div class="et_pb_column et_pb_column_1_2">
                     <div class="">
-                        <label class="">Issue</label>
+                        <label class="required-cs">Issue</label>
                         <?php
                         $db_issue_id = $customer_row->issue_id; 
                         ?>
-                        <select name="issue_id"  id="issue_id">
+                        <select name="issue_id"  id="issue_id" required="required">
                         <option  value="">Select Issue</option>
                          <?php
                          $issue_result  = new CS_ISSUE();
