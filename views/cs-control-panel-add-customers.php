@@ -170,7 +170,9 @@ if($visible):
                         <option  value="">Select Issue</option>
                          <?php
                          $issue_result  = new CS_ISSUE();
-                         $issues        = $issue_result->get_results();
+                         $status        = 0;
+                         $condition     = "WHERE status=$status";
+                         $issues        = $issue_result->get_results($condition);
                             foreach ($issues as $issue) { 
                                 $id   = $issue->id;
                                 $issue= $issue->issue_text;

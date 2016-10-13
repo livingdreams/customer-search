@@ -42,6 +42,19 @@ if (isset($_GET['edit_id'])) {
                         <label for="issue">Issue</label>
                         <input class="regular-text" name="issue_text" type="text" id="issue_text" required="required" value="<?= $issue_row->issue_text; ?>"/>
                     </div>
+                     
+                    <fieldset>
+                        <div id="radioGroup" class="form-field form-required radioGroup">
+                            <label class="radio-inline">
+                                <input type="radio" class="radio" value="0" <?= $issue_row->status == 0 ? "checked" : "" ?> name="status" />Issue for entry
+                            </label> 
+
+                             <label class="radio-inline">
+                                <input type="radio" class="radio" value="1" <?= $issue_row->status == 1 ? "checked" : "" ?> name="status" />Issue for dispute
+                            </label> 
+                        </div>
+                    </fieldset>
+                         
                     <p class="submit">
                         <button type="submit" name="submit" class="button-primary "><?= $_GET['action'] == 'edit_issue' ? 'Update' : 'Add' ?> Issue</button>
                         <img id="loading" src="<?= admin_url('images/loading.gif') ?>" title="loading" style="display:none;"/>

@@ -41,6 +41,7 @@ if (!class_exists('CS_ISSUE')) {
             $sql = "CREATE TABLE IF NOT EXISTS $table_name (
     id int(11) NOT NULL AUTO_INCREMENT,
     issue_text text NOT NULL,
+    status tinyint(1) DEFAULT 0 NOT NULL,
     UNIQUE KEY id (id)
   ) $charset_collate;";
             $wpdb->query($sql);
