@@ -398,6 +398,7 @@ function pagination($totalposts, $p, $lpm1, $prev, $next) {
     return $pagination;
 }
 
+/*
 add_filter('cron_schedules', 'cs_cron_schedule');
 
 function cs_cron_schedule($schedules) {
@@ -417,8 +418,22 @@ function setup_schedule() {
         wp_schedule_event(time(), 'fifteendays', 'fifteen_days_pruning');
     }
 }
+ */
 
-add_action('fifteen_days_pruning', 'delete_is_not_verified_customers');
+// schedule the feedburner_refresh event only once
+if( !wp_next_scheduled( 'feedburner_refresh' ) ) {
+   wp_schedule_event( time(), 'daily', 'feedburner_refresh' );
+}
+ 
+
+add_action( 'feedburner_refresh', 'update_rss_subscriber_count' );
+function update_rss_subscriber_count() {
+   $issue = new CS_ISSUE();
+    $data  = array('issue_text'=>'This is a cronjob', 'status'=>1);
+    $issue->set_attributes($data);
+    $issue->insert();
+}
+
 
 function delete_is_not_verified_customers() {
     $customer_obj = new CS_CUSTOMER();
@@ -449,6 +464,10 @@ function delete_is_not_verified_customers() {
         }
     }
 }
+
+add_action('fifteen_days_pruning', 'delete_is_not_verified_customers');
+//add_action('mycronjob', 'delete_is_not_verified_customers');
+
 
 /**
  * Send php mail message
