@@ -9,7 +9,7 @@ if (isset($_GET['edit_id'])) {
 
 <div class="wrap">
 
-    <h1><?= $_GET['action'] == 'edit_issue' ? 'Edit' : 'New' ?> Issue</h1>
+    <h1>Issue</h1>
     <hr>
 
     <div class="pm_block">
