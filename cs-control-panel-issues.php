@@ -9,7 +9,7 @@ if (isset($_GET['edit_id'])) {
 
 <div class="wrap">
 
-    <h1>Issues</h1>
+    <h1><?= $_GET['action'] == 'edit_issue' ? 'Edit' : 'New' ?> Issue</h1>
     <hr>
 
     <div class="pm_block">
@@ -30,7 +30,7 @@ if (isset($_GET['edit_id'])) {
         </div>
         <div id="col-left">
             <div class="col-wrap">
-                <h2>Add New Issue</h2>
+                 <h2><?= $_GET['action'] == 'edit_issue' ? 'Edit' : 'Add New' ?> Issue</h2>
                 <form id="new-issue" class="form-wrap" method="<?= $_GET['action'] == 'edit_issue' ? 'edit_issue' : 'new_issue' ?>">
                     <?php if ($_GET['action'] == 'edit_issue'): ?>
                         <input type="hidden" id="id" name="id" value="<?= $issue_row->id ?>"/>
