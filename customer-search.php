@@ -80,7 +80,7 @@ if (!function_exists('IncludePhpFile_CS')) {
 if (!function_exists('CustomerSearchScript')) {
 
     function CustomerSearchScript() {
-		$pluginPageArray = array('cs-control-panel-add-customers', 'cs-control-panel-issues', 'cs-control-panel-general', 'cs-control-panel', 'cs-control-panel-search');
+		$pluginPageArray = array('cs-control-panel-add-customers', 'cs-control-panel-issues', 'cs-control-panel-general', 'cs-control-panel');
 
         if (isset($_GET['page']) && in_array($_GET['page'], $pluginPageArray)) {
             wp_enqueue_script('cs-admin-scripts', plugins_url('assets/js/admin.js', __FILE__), array('jquery'));

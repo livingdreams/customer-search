@@ -84,7 +84,9 @@ $issue_result = new CS_ISSUE();
             <select name="issue_id"  id="post-search-input">
                 <option  value="">Select Issue</option>
                 <?php
-                $issues = $issue_result->get_results();
+                $status        = 0;
+                $condition     = "WHERE status=$status";
+                $issues = $issue_result->get_results($condition);
                 foreach ($issues as $issue) {
                     $id = $issue->id;
                     $issue = $issue->issue_text;
