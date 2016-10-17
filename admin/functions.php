@@ -172,20 +172,16 @@ if (!function_exists('cs_ajax_callback')) {
                     $user_id = $match_user_meta[0]->user_id;
                     $cus_details = $customer->getCustomer($user_id, $first_name, $last_name, $city);
 
-
                     if (!empty($user_id)) {
                         $user_details = get_userdata($user_id);
                         
                         $member_details = get_user_by('id', $user_id);
                         $email = $member_details->user_email;
 
-
-
                         if ((!empty($match_user_meta)) && (!empty($cus_details))) {
                             if ((count($match_user_meta) > 0) && (count($cus_details) > 0)) {
                                 $db_business_name = $match_user_meta[0]->meta_value;
                                 $exact_match_business_name = strcmp($db_business_name, $business_name);
-
                                 if ($exact_match_business_name == (int) 0) {
 
                                     $details = array(
@@ -201,8 +197,8 @@ if (!function_exists('cs_ajax_callback')) {
                                         'created_on' => date("Y-m-d"),
                                         'to_be_deleted' => date('Y-m-d', strtotime("+15 days")),
                                     );
-
-                                    $condition = "lastname = '$last_name' AND firstname = '$first_name' AND businessname = '$business_name' AND city = '$city' AND mailingaddress = '$mailing_addrs' AND emailaddress = '$email_addrs' AND phonenumber = '$phone_num' AND status = 0";
+                                    
+                                    $condition = "lastname = '$last_name' AND firstname = '$first_name' AND city = '$city' AND businessname = '$business_name' AND status = 0";
 
                                     $is_added = $customer_dispute->get_dispute_row($condition);
                                     if ($is_added == false) {
@@ -218,7 +214,6 @@ if (!function_exists('cs_ajax_callback')) {
                                             $data['status'] = 2;
                                             $data['message'] = "Thank you. An e-mail has been sent to the Business Contact person for further actions";
                                             
-                                            //$message = "Hello World";
                                             ob_start();
                                             include('email-templates/notify-dispute.php');
                                             $message = ob_get_clean();

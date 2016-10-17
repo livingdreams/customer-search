@@ -93,10 +93,13 @@
                             <td style="padding:7px 0">
                         <font size="2" face="Open-sans, sans-serif" color="#555454">
                             <span style="color:#777">
-                                <?php echo 'First Name    : ' . $customer_dispute->attributes['cus_first_name']?><br /><br />
-                                <?php echo 'Last Name     : ' . $customer_dispute->attributes['cus_last_name']?><br /><br />
-                                <?php echo 'Business Name : ' . $customer_dispute->attributes['cus_business_name']?><br /><br />
-                                <?php echo 'City          : ' . $customer_dispute->attributes['cus_city']?><br /><br />
+                                <?php echo 'First Name      : ' . $customer_dispute->attributes['cus_first_name']?><br /><br />
+                                <?php echo 'Last Name       : ' . $customer_dispute->attributes['cus_last_name']?><br /><br />
+                                <?php echo 'Business Name   : ' . $customer_dispute->attributes['cus_business_name']?><br /><br />
+                                <?php echo 'City            : ' . $customer_dispute->attributes['cus_city']?><br /><br />
+                                <?php echo 'Mailing Address : ' . $customer_dispute->attributes['cus_mailing_address']?><br /><br />
+                                <?php echo 'Email Address   : ' . $customer_dispute->attributes['cus_email_address']?><br /><br />
+                                <?php echo 'Phone           : ' . $customer_dispute->attributes['cus_phone']?><br /><br />
                             </span>
                         </font>
                 </td>
