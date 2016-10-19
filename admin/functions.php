@@ -415,18 +415,29 @@ function setup_schedule() {
 }
  */
 
-// schedule the feedburner_refresh event only once
-if( !wp_next_scheduled( 'feedburner_refresh' ) ) {
-   wp_schedule_event( time(), 'daily', 'feedburner_refresh' );
+add_filter('cron_schedules','cliv_cron_add_syncdays');
+function cliv_cron_add_syncdays($schedules){
+    $schedules['everyminute'] = array(
+        'interval' => 60,
+        'display' => __( 'Once Every Minute' )
+    );
+   return $schedules;
 }
- 
 
-add_action( 'feedburner_refresh', 'update_rss_subscriber_count' );
-function update_rss_subscriber_count() {
-   $issue = new CS_ISSUE();
-    $data  = array('issue_text'=>'This is a cronjob', 'status'=>1);
+add_action('init','cliv_create_recurring_schedule');
+//add_action('cron_action','cron_function');
+add_action('cron_action','delete_is_not_verified_customers');
+
+/*function cron_function(){
+    $issue = new CS_ISSUE();
+    $data  = array('issue_text'=>'This is a cronjob new', 'status'=>1);
     $issue->set_attributes($data);
-    $issue->insert();
+    $issue->insert();  
+}*/
+
+function cliv_create_recurring_schedule(){
+  if(!wp_next_scheduled('cron_action'))
+   wp_schedule_event (time(), 'everyminute', 'cron_action');
 }
 
 
@@ -475,8 +486,8 @@ function sendEmail($to, $subject, $message) {
     //filter email content type
     add_filter('wp_mail_content_type', 'setHtmlContentType');
 
-    $headers = 'From: Bizware <webmaster@lankabird.com>' . "\r\n" .
-            'Reply-To: noreply@lankabird.com' . "\r\n" .
+    $headers = 'From: Bizware <webmaster@bizbeware.net>' . "\r\n" .
+            'Reply-To: noreply@bizbeware.net' . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
 
     if (wp_mail($to, $subject, $message, $headers)) {

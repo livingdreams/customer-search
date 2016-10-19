@@ -79,7 +79,7 @@
             <tr>
                 <td>
                      <p data-html-only="1" style="border-bottom:1px solid #D6D4D4;margin:3px 0 7px;text-transform:capitalize;font-weight:500;font-size:18px;padding-bottom:10px">
-                                Below are dispute entry details :</p>
+                                A customer has sent a dispute entry. Below are the details. Please verify the entry by login in to your account. If you did not verify the entry, the customer record will be deleted after 15 days.</p>
                 </td>
             </tr>
             <tr>
