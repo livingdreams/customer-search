@@ -30,6 +30,15 @@ jQuery(document).ready(function ($) {
         $(this).find('button').removeAttr('disabled');
         return false;
     });
+    
+   if ($(".cs-search-result")[0]){
+    $('.page').delay(1000) //wait 4 seconds
+        .animate({
+            //animate jQuery's custom "scrollTop" style
+            //grab the value as the offset of #second from the top of the page
+            'scrollTop': jQuery('#poststuff').offset().top
+        }, 3000); //a
+   }
 
 });
 
@@ -66,4 +75,3 @@ function verifyCustomer(id, dispute_id){
         });
 }
 /*End delete customer process*/
-

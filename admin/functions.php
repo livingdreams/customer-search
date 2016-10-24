@@ -172,16 +172,20 @@ if (!function_exists('cs_ajax_callback')) {
                     $user_id = $match_user_meta[0]->user_id;
                     $cus_details = $customer->getCustomer($user_id, $first_name, $last_name, $city);
 
+
                     if (!empty($user_id)) {
                         $user_details = get_userdata($user_id);
                         
                         $member_details = get_user_by('id', $user_id);
                         $email = $member_details->user_email;
 
+
+
                         if ((!empty($match_user_meta)) && (!empty($cus_details))) {
                             if ((count($match_user_meta) > 0) && (count($cus_details) > 0)) {
                                 $db_business_name = $match_user_meta[0]->meta_value;
                                 $exact_match_business_name = strcmp($db_business_name, $business_name);
+
                                 if ($exact_match_business_name == (int) 0) {
 
                                     $details = array(
@@ -197,8 +201,8 @@ if (!function_exists('cs_ajax_callback')) {
                                         'created_on' => date("Y-m-d"),
                                         'to_be_deleted' => date('Y-m-d', strtotime("+15 days")),
                                     );
-                                    
-                                    $condition = "lastname = '$last_name' AND firstname = '$first_name' AND city = '$city' AND businessname = '$business_name' AND status = 0";
+
+                                    $condition = "lastname = '$last_name' AND firstname = '$first_name' AND businessname = '$business_name' AND city = '$city' AND status = 0";
 
                                     $is_added = $customer_dispute->get_dispute_row($condition);
                                     if ($is_added == false) {
@@ -214,6 +218,7 @@ if (!function_exists('cs_ajax_callback')) {
                                             $data['status'] = 2;
                                             $data['message'] = "Thank you. An e-mail has been sent to the Business Contact person for further actions";
                                             
+                                            //$message = "Hello World";
                                             ob_start();
                                             include('email-templates/notify-dispute.php');
                                             $message = ob_get_clean();
@@ -235,7 +240,14 @@ if (!function_exists('cs_ajax_callback')) {
                                 $data['status'] = false;
                                 $data['message'] = "No matching record found";
                             }
-                        }
+                        }else{
+			     $data['status'] = false;
+                             $data['message'] = "No matching record found";
+			}
+                    }else{
+                            $data['status'] = false;
+                            $data['message'] = "No matching record found";
+
                     }
                 } else {
                     $data['status'] = false;
@@ -393,53 +405,38 @@ function pagination($totalposts, $p, $lpm1, $prev, $next) {
     return $pagination;
 }
 
-/*
-add_filter('cron_schedules', 'cs_cron_schedule');
-
-function cs_cron_schedule($schedules) {
-
-    $schedules['fifteendays'] = array(
-        'interval' => 86400, // Every 15 days 1296000
-        'display' => __('Every 15 days'),
+/*function isa_add_every_three_minutes( $schedules ) {
+ 
+    $schedules['every_three_minutes'] = array(
+            'interval'  => 180,
+            'display'   => __( 'Every 3 Minutes', 'textdomain' )
     );
-
+     
     return $schedules;
 }
+add_filter( 'cron_schedules', 'isa_add_every_three_minutes' );
 
-add_action('wp', 'setup_schedule');
 
-function setup_schedule() {
-    if (!wp_next_scheduled('fifteen_days_pruning')) {
-        wp_schedule_event(time(), 'fifteendays', 'fifteen_days_pruning');
-    }
-}
- */
+wp_schedule_event( time(), 'every_three_minutes', 'delete_is_not_verified_customers' );
+
+*/
 
 add_filter('cron_schedules','cliv_cron_add_syncdays');
 function cliv_cron_add_syncdays($schedules){
     $schedules['everyminute'] = array(
-        'interval' => 60,
+        'interval' => 86400,
         'display' => __( 'Once Every Minute' )
     );
    return $schedules;
 }
 
 add_action('init','cliv_create_recurring_schedule');
-//add_action('cron_action','cron_function');
 add_action('cron_action','delete_is_not_verified_customers');
-
-/*function cron_function(){
-    $issue = new CS_ISSUE();
-    $data  = array('issue_text'=>'This is a cronjob new', 'status'=>1);
-    $issue->set_attributes($data);
-    $issue->insert();  
-}*/
 
 function cliv_create_recurring_schedule(){
   if(!wp_next_scheduled('cron_action'))
    wp_schedule_event (time(), 'everyminute', 'cron_action');
 }
-
 
 function delete_is_not_verified_customers() {
     $customer_obj = new CS_CUSTOMER();
@@ -471,10 +468,6 @@ function delete_is_not_verified_customers() {
     }
 }
 
-add_action('fifteen_days_pruning', 'delete_is_not_verified_customers');
-//add_action('mycronjob', 'delete_is_not_verified_customers');
-
-
 /**
  * Send php mail message
  * @param string $to
@@ -486,7 +479,7 @@ function sendEmail($to, $subject, $message) {
     //filter email content type
     add_filter('wp_mail_content_type', 'setHtmlContentType');
 
-    $headers = 'From: Bizware <webmaster@bizbeware.net>' . "\r\n" .
+    $headers = 'From: Bizware <noreply@bizbeware.net>' . "\r\n" .
             'Reply-To: noreply@bizbeware.net' . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
 
