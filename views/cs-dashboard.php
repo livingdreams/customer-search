@@ -71,31 +71,48 @@ $lpm1 = $totalposts - 1;
                                 <table>
                                     <thead>
                                     <th>Name</th>
+                                    <th>SSN/FEIN</th>
                                     <th>M.I</th>
                                     <th>Address</th>
                                     <th>Issue</th>
+                                    <th>Business Type</th>
+                                    <th>City</th>
+                                    <th>Zip_Code</th>
+                                    <th>State</th>
                                     </thead>
                                     <tbody>
                                         <?php
                                         foreach ($customer_ids as $cus_id) {
 
                                             $customer_details = $customer->get_row('id', $cus_id);
+                                            //var_dump($customer_details);
                                             if ($customer_details) {
+
+                                                if (!empty($customer_details->suffix)) {
+                                                    $suffix = '(' . $customer_details->suffix . ')';
+                                                } else {
+                                                    $suffix = '';
+                                                }
                                                 ?>
-                                                <tr><td><?php echo $customer_details->firstname . ' ' . $customer_details->lastname; ?></td>
+                                                <tr><td><?php echo $customer_details->prefix . ' ' . $customer_details->firstname . ' ' . $customer_details->lastname . ' ' . $suffix; ?></td>
+                                                    <td><?php echo $customer_details->ssn; ?></td>
                                                     <td><?php echo $customer_details->m_i; ?></td>
                                                     <td><?php echo $customer_details->street_address . ' ' . $customer_details->city . ' ' . $customer_details->zipcode; ?></td>
                                                     <td>
-                                                        <?php
-                                                        $issue_text = $issue->get_row('id', $res->issue_id);
-                                                        if ($issue_text) {
-                                                            echo $issue_text->issue_text;
-                                                        }
-                                                        ?>
+                    <?php
+                    $issue_text = $issue->get_row('id', $res->issue_id);
+                    if ($issue_text) {
+                        echo $issue_text->issue_text;
+                    }
+                    ?>
                                                     </td>
+                                                    <td><?php echo get_user_meta($customer_details->owner, 'Type_of_business', true); ?></td>
+                                                    <td><?php echo get_user_meta($customer_details->owner, 'City', true); ?></td> 
+                                                    <td><?php echo get_user_meta($customer_details->owner, 'Zip_Code', true); ?></td> 
+                                                    <td><?php echo get_user_meta($customer_details->owner, 'State', true); ?></td> 
                                                 </tr> 
-                                            <?php }
-                                            ?>
+                <?php }
+                ?>
 
 
                                         <?php } ?>
@@ -103,15 +120,15 @@ $lpm1 = $totalposts - 1;
                                 </table>
                             </td>
                         </tr>
-                        <?php
-                    }
-                }
-                ?>
-            </tbody>
-        </table>
-        <?php
-        echo pagination($totalposts, $p, $lpm1, $prev, $next);
+            <?php
+        }
     }
     ?>
+            </tbody>
+        </table>
+                <?php
+                echo pagination($totalposts, $p, $lpm1, $prev, $next);
+            }
+            ?>
 </div>
 

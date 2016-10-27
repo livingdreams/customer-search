@@ -41,8 +41,25 @@ if($visible):
              <div class="et_pb_row">
                 <div class="et_pb_column et_pb_column_1_2">
                     <div class="">
+                        <label>Prefix</label>
+                        <input class="regular-text code" name="prefix" type="text" id="prefix" value="<?= $customer_row->prefix; ?>"/>
+                    </div>
+                </div>
+
+                <div class="et_pb_column et_pb_column_1_2">
+                    <div class="">
                         <label class="required-cs">First Name</label>
-                        <input class="regular-text code" name="firstname" type="text" id="firstname" required="required" value="<?= $customer_row->firstname; ?>"/>
+                        <input class="regular-text" name="firstname" type="text" id="firstname" required="required" value="<?= $customer_row->firstname; ?>"/>
+                    </div>
+                </div> 
+            </div> 
+             
+             
+              <div class="et_pb_row">
+                <div class="et_pb_column et_pb_column_1_2">
+                    <div class="">
+                        <label>Suffix</label>
+                        <input class="regular-text code" name="suffix" type="text" id="suffix" value="<?= $customer_row->suffix; ?>"/>
                     </div>
                 </div>
 
@@ -53,6 +70,42 @@ if($visible):
                     </div>
                 </div> 
             </div> 
+             
+             <div class="et_pb_row">
+                <div class="et_pb_column et_pb_column_1_2">
+                    <div class="">
+                        <label>Other First Name 1</label>
+                        <input class="regular-text code" name="other_fn_1" type="text" id="other_fn_1" value="<?= $customer_row->other_fn_1; ?>"/>
+                    </div>
+                </div>
+
+                <div class="et_pb_column et_pb_column_1_2">
+                    <div class="">
+                        <label>Other First Name 2</label>
+                        <input class="regular-text" name="other_fn_2" type="text" id="other_fn_2" value="<?= $customer_row->other_fn_2; ?>"/>
+                    </div>
+                </div> 
+            </div> 
+             
+             <div class="et_pb_row">
+                <div class="et_pb_column et_pb_column_1_2">
+                    <div class="">
+                        <label>Other Last Name</label>
+                        <input class="regular-text code" name="other_ln" type="text" id="other_ln" value="<?= $customer_row->other_ln; ?>"/>
+                    </div>
+                </div>
+
+                <div class="et_pb_column et_pb_column_1_2">
+                    <div class="">
+                        <label>Last 4 digits of SSN /FEIN</label>
+                        <input class="regular-text" name="ssn" type="text" id="ssn" maxlength="4" pattern="\d{4}" value="<?= $customer_row->ssn; ?>"/>
+                    </div>
+                </div> 
+            </div> 
+             
+             
+             
+             
              
              <div class="et_pb_row">
                 <div class="et_pb_column et_pb_column_1_2">
@@ -170,7 +223,7 @@ if($visible):
                         <option  value="">Select Issue</option>
                          <?php
                          $issue_result  = new CS_ISSUE();
-                         $status        = 0;
+                          $status        = 0;
                          $condition     = "WHERE status=$status";
                          $issues        = $issue_result->get_results($condition);
                             foreach ($issues as $issue) { 

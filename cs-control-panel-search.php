@@ -14,6 +14,7 @@ $issue_result = new CS_ISSUE();
             <input id="post-search-input" type="text" value="" placeholder="M.I" name="m_i" size="30">
             <input id="post-search-input" type="text" value="" placeholder="Street Address " name="streetaddress" size="30">
             <input id="post-search-input" type="text" value="" placeholder="City" name="city" size="30">
+            <input id="post-search-input" type="text" value="" placeholder="Last 4 digits of SSN /FEIN" name="ssn" maxlength="4" pattern="\d{4}">
             <select name="state"  id="post-search-input">
                 <option  value="">Select State</option>
                 <?php
@@ -106,7 +107,7 @@ $issue_result = new CS_ISSUE();
                                 <form method = "post">
                                     <?php
                                     if (isset($_REQUEST['firstname'])) {
-                                        $customers->prepare_items_search($_REQUEST['firstname'], $_REQUEST['lastname'], $_REQUEST['m_i'], $_REQUEST['streetaddress'], $_REQUEST['city'], $_REQUEST['state'], $_REQUEST['zipcode'], $_REQUEST['issue_id']);
+                                        $customers->prepare_items_search($_REQUEST['firstname'], $_REQUEST['lastname'], $_REQUEST['m_i'], $_REQUEST['streetaddress'], $_REQUEST['city'], $_REQUEST['ssn'], $_REQUEST['state'], $_REQUEST['zipcode'], $_REQUEST['issue_id']);
                                         $customers->display();
                                     }
                                     ?>

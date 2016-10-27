@@ -36,16 +36,26 @@ $lpm1 = $totalposts - 1;
         ?>
         <table>
             <thead>
+
             <th>Name</th>
+            <th>Last 4 digits of SSN /FEIN</th>
             <th>M.I</th>
             <th>Address</th>
             <th>Issue</th>
             <th></th>
             </thead>
             <tbody>
-                <?php foreach ($results as $res) { ?>
+                <?php
+                foreach ($results as $res) {
+                    if (!empty($res->suffix)) {
+                        $suffix = '(' . $res->suffix . ')';
+                    } else {
+                        $suffix = '';
+                    }
+                    ?>
                     <tr>
-                        <td><?php echo $res->firstname . ' ' . $res->lastname; ?></td>
+                        <td><?php echo $res->prefix . ' ' . $res->firstname . ' ' . $res->lastname . ' ' . $suffix; ?></td>
+                        <td><?php echo $res->ssn; ?></td>
                         <td><?php echo $res->m_i; ?></td>
                         <td><?php echo $res->street_address . ' ' . $res->city . ' ' . $res->zipcode; ?></td>
                         <td>
@@ -59,7 +69,7 @@ $lpm1 = $totalposts - 1;
                         <td>
                             <a href="<?= bloginfo('url') ?>/contribute-information?action=edit-customer&customer=<?= $res->id; ?>">Edit</a>
                             <a href=""  onclick="deleteCustomer('<?php echo $res->id; ?>')" >Delete</a>
-                            <?php if($res->is_dispute != NULL){ ?> <a href=""  onclick="verifyCustomer('<?php echo $res->id; ?>', '<?php echo $res->is_dispute; ?>')" >Verify</a> <?php } ?>
+                            <?php if ($res->is_dispute != NULL) { ?> <a href=""  onclick="verifyCustomer('<?php echo $res->id; ?>', '<?php echo $res->is_dispute; ?>')" >Verify</a> <?php } ?>
                         </td>
                     </tr>
                     <?php

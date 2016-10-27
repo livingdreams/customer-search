@@ -49,6 +49,12 @@ if (!class_exists('CS_CUSTOMER')) {
     owner bigint(20) UNSIGNED NOT NULL,
     lastname varchar(64) NOT NULL,
     firstname varchar(64) NOT NULL,
+    other_fn_1 varchar(64) NULL,
+    other_fn_2 varchar(64) NULL,
+    prefix varchar(64) NULL,
+    suffix varchar(64) NULL,
+    other_ln varchar(64) NULL,
+    ssn varchar(64) NULL,
     m_i varchar(64) NOT NULL,
     street_address varchar(255) NULL,
     city varchar(64) NULL,
@@ -104,9 +110,16 @@ if (!class_exists('CS_CUSTOMER')) {
         public function get_columns() {
             $columns = [
                 'cb' => '<input type="checkbox" />',
+                'prefix' => __('Prefix'),
                 'firstname' => __('First Name'),
-                'lastname' => __('Last Name'),
+                'suffix' => __('Suffix'),
+                'lastname' => __('Last Name'),      
                 'm_i' => __('M.I'),
+                'city' => __('City'),
+                'zipcode' => __('State'),
+                'ssn' => __('SSN/FEIN'),
+               
+                
             ];
 
             return $columns;
@@ -120,9 +133,14 @@ if (!class_exists('CS_CUSTOMER')) {
          */
         function column_default($item, $column_name) {
             switch ($column_name) {
+                case 'prefix':
                 case 'firstname':
+                case 'suffix':
                 case 'lastname':
-                case 'm_i':
+                case 'm_i': 
+                case 'city':  
+                case 'zipcode':  
+                case 'ssn':
                     return $item[$column_name];
                 default:
                     return print_r($item, true); //Show the whole array for troubleshooting purposes
@@ -140,7 +158,7 @@ if (!class_exists('CS_CUSTOMER')) {
             );
         }
 
-        function column_firstname($item) {
+        function column_prefix($item) {
             // create a nonce
             $delete_nonce = wp_create_nonce('cs_delete_customer');
             $edit_nonce = wp_create_nonce('cs_edit_customer');
@@ -151,7 +169,7 @@ if (!class_exists('CS_CUSTOMER')) {
             ];
 
             return sprintf('%1$s <span style="color:silver"></span>%2$s',
-                    /* $1%s */ $item['firstname'],
+                    /* $1%s */ $item['prefix'],
                     /* $2%s */ $this->row_actions($actions)
             );
         }
@@ -179,11 +197,11 @@ if (!class_exists('CS_CUSTOMER')) {
           return false;
           } */
 
-        public function prepare_items_search($firstname, $lastname, $mi, $streetaddress, $city, $state, $zipcode, $issueid) {
+        public function prepare_items_search($firstname, $lastname, $mi, $streetaddress, $city, $ssn, $state, $zipcode, $issueid) {
             $condition = "";
             $concatinate = "";
             if ((!empty($firstname)) || (!empty($lastname)) || (!empty($mi)) || (!empty($streetaddress)) ||
-                    (!empty($city)) || (!empty($state)) || (!empty($zipcode)) || (!empty($issueid))) {
+                    (!empty($city)) || (!empty($state)) || (!empty($zipcode)) || (!empty($issueid)) || (!empty($ssn)) ) {
                 $condition = "WHERE ";
                 if (!empty($firstname)) {
                     $condition .= " firstname = '$firstname' ";
@@ -205,6 +223,10 @@ if (!class_exists('CS_CUSTOMER')) {
                     $condition .= $concatinate . " city= '$city' ";
                     $concatinate = " AND ";
                 }
+                 if (!empty($ssn)) {
+                    $condition .= $concatinate . "  ssn = '$ssn' ";
+                    $concatinate = " AND ";
+                } 
                 if (!empty($state)) {
                     $condition .= $concatinate . " state= '$state' ";
                     $concatinate = " AND ";
@@ -241,7 +263,7 @@ if (!class_exists('CS_CUSTOMER')) {
             $this->items = $this->get_results($condition, ARRAY_A);
         }
 
-        public function prepare_frontend_search($firstname, $lastname, $mi, $streetaddress, $city, $state, $zipcode) {
+        public function prepare_frontend_search($firstname, $lastname, $mi, $streetaddress, $city, $ssn, $state, $zipcode) {
 
             $credit_log = new CS_CREDIT_LOG();
             $search_results = new CS_SEARCH_RESULTS();
@@ -250,11 +272,11 @@ if (!class_exists('CS_CUSTOMER')) {
             if ((!empty($firstname)) && (!empty($lastname))) {
                 $condition = "WHERE ";
                 if (!empty($firstname)) {
-                    $condition .= " firstname = '$firstname' ";
+                    $condition .= " ((firstname = '$firstname') || (other_fn_1 ='$firstname') || (other_fn_2 ='$firstname'))";
                     $concatinate = " AND ";
                 }
                 if (!empty($lastname)) {
-                    $condition .= $concatinate . " lastname= '$lastname' ";
+                    $condition .= $concatinate . " ((lastname= '$lastname')|| (other_ln ='$lastname'))";
                     $concatinate = " AND ";
                 }
                 if (!empty($mi)) {
@@ -268,6 +290,10 @@ if (!class_exists('CS_CUSTOMER')) {
                     $condition .= $concatinate . " city= '$city' ";
                     $concatinate = " AND ";
                 }
+                 if (!empty($ssn)) {
+                    $condition .= $concatinate . " ssn= '$ssn' ";
+                    $concatinate = " AND ";
+                }                    
                 if (!empty($state)) {
                     $condition .= $concatinate . " state= '$state' ";
                     $concatinate = " AND ";

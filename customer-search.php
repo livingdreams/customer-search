@@ -122,13 +122,13 @@ add_action('wp_enqueue_scripts', 'Customer_Search_FrontScripts');
 add_action('woocommerce_product_options_general_product_data', 'woo_add_cs_custom_general_fields');
 
 // Save Fields
-add_action('woocommerce_process_product_meta', 'woo_add_cs_custom_general_fields_save');
+add_action('woocommerce_process_product_meta', 'woo_add_cs_custom_general_fields_save'); 
 
-function woo_add_cs_custom_general_fields() {
+function woo_add_cs_custom_general_fields() { 
 
-    global $woocommerce, $post;
+    global $woocommerce, $post; 
 
-    echo '<div class="options_group">';
+    echo '<div class="options_group">'; 
 
     // Custom fields will be created here...
     woocommerce_wp_text_input(
@@ -158,7 +158,7 @@ add_action('woocommerce_order_status_completed', 'adding_customer_points');
 function adding_customer_points($order_id) {
     // order object (optional but handy)
     $order = new WC_Order($order_id);
-    $get_points = 0;
+    $get_points = 0; 
     $total_points = 0;
     // do some stuff here
     $items = $order->get_items();
@@ -210,7 +210,7 @@ function cs_search_customer() {
     return $contents;
 }
 
-add_shortcode('CS_SEARCH_CUSTOMER', 'cs_search_customer');
+add_shortcode('CS_SEARCH_CUSTOMER', 'cs_search_customer'); 
 
 /**
  * Shortcode to display dashboard
@@ -218,7 +218,7 @@ add_shortcode('CS_SEARCH_CUSTOMER', 'cs_search_customer');
 function cs_result_dashboard() {
     ob_start();
     if (is_user_logged_in())
-        require_once('views/cs-dashboard.php');
+        require_once('views/cs-dashboard.php'); 
     $contents = ob_get_clean();
     return $contents;
 }
@@ -237,7 +237,7 @@ function cs_total_points() {
         return 0;
 }
 
-add_shortcode('CS_TOTAL_POINTS', 'cs_total_points');
+add_shortcode('CS_TOTAL_POINTS', 'cs_total_points'); 
 
 function cs_all_customers() {
     ob_start();

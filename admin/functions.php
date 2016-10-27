@@ -172,7 +172,6 @@ if (!function_exists('cs_ajax_callback')) {
                     $user_id = $match_user_meta[0]->user_id;
                     $cus_details = $customer->getCustomer($user_id, $first_name, $last_name, $city);
 
-
                     if (!empty($user_id)) {
                         $user_details = get_userdata($user_id);
                         

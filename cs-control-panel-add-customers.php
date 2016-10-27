@@ -27,12 +27,36 @@ if (isset($_GET['customer'])) {
         <table class="form-table">
             <tbody>
                 <tr>
+                    <th><label class="required">Prefix</label></th>
+                    <td><input class="regular-text code" name="prefix" type="text" id="prefix"  value="<?= $customer_row->prefix; ?>"/></td>
+                </tr>
+                <tr>
                     <th><label class="required">First Name</label></th>
                     <td><input class="regular-text code" name="firstname" type="text" id="firstname" required="required" value="<?= $customer_row->firstname; ?>"/></td>
+                </tr>
+                 <tr>
+                    <th><label class="required">Suffix</label></th>
+                    <td><input class="regular-text code" name="suffix" type="text" id="suffix"  value="<?= $customer_row->suffix; ?>"/></td>
                 </tr>
                 <tr>
                     <th><label class="required">Last Name</label></th>
                     <td><input class="regular-text" name="lastname" type="text" id="lastname" required="required" value="<?= $customer_row->lastname; ?>"/></td>
+                </tr>
+                <tr>
+                    <th><label class="required">Other First Name 1</label></th>
+                    <td><input class="regular-text code" name="other_fn_1" type="text" id="other_fn_1"  value="<?= $customer_row->other_fn_1; ?>"/></td>
+                </tr>
+                <tr>
+                    <th><label class="required">Other First Name 2</label></th>
+                    <td><input class="regular-text code" name="other_fn_2" type="text" id=" other_fn_2"  value="<?= $customer_row->other_fn_2; ?>"/></td>
+                </tr>
+                <tr>
+                    <th><label class="required">Other Last Name</label></th>
+                    <td><input class="regular-text code" name="other_ln" type="text" id="other_ln"  value="<?= $customer_row->other_ln; ?>"/></td>
+                </tr>
+                <tr>
+                    <th><label class="required">Last 4 digits of SSN /FEIN</label></th>
+                    <td><input class="regular-text code" name="ssn" type="text" id="ssn" maxlength="4" pattern="\d{4}"  value="<?= $customer_row->ssn; ?>"/></td>
                 </tr>
                 <tr>
                     <th><label>M.I</label></th>
@@ -40,11 +64,11 @@ if (isset($_GET['customer'])) {
                 </tr>
                 <tr>
                     <th><label>Street Address </label></th>
-                    <td><textarea class="regular-text" name="street_address" type="textarea" id="street_address"  rows="5" cols="53" style="resize:none;" /><?php if(isset($customer_row->street_address)){ echo $customer_row->street_address; } ?></textarea></td>
+                    <td><textarea class="regular-text" name="street_address" type="textarea" id="street_address"  rows="5" cols="53" /><?php if(isset($customer_row->street_address)){ echo $customer_row->street_address; } ?></textarea></td>
                 </tr>
                 <tr>
                     <th><label>City</label></th>
-                    <td><input class="regular-text" name="city" type="text" id="city"  value="<?= $customer_row->city; ?>" /></td>
+                    <td><input class="regular-text" name="city" type="text" id="city" required="required" value="<?= $customer_row->city; ?>" /></td>
                 </tr>
                 <tr>
                     <th><label>State</label></th>
@@ -105,7 +129,7 @@ if (isset($_GET['customer'])) {
                         );
                         $db_state = $customer_row->state; 
                         ?>
-                        <select name="state"  id="state">
+                        <select name="state"  id="state" required="required">
                         <option  value="">Select State</option>
                         <?php
                             foreach ($usStates as $state) {
@@ -120,7 +144,7 @@ if (isset($_GET['customer'])) {
                 </tr>
                 <tr>
                     <th><label class="required">Zip Code</label></th>
-                    <td><input class="regular-text" name="zipcode" type="text" id="zipcode" required="required" value="<?= $customer_row->zipcode; ?>"/></td>
+                    <td><input class="regular-text" name="zipcode" type="text" id="zipcode"  value="<?= $customer_row->zipcode; ?>"/></td>
                 </tr>
                 <tr>
                     <th><label>Issue</label></th>
@@ -128,7 +152,7 @@ if (isset($_GET['customer'])) {
                         <?php
                         $db_issue_id = $customer_row->issue_id; 
                         ?>
-                        <select name="issue_id"  id="issue_id">
+                        <select name="issue_id"  id="issue_id" required="required">
                         <option  value="">Select Issue</option>
                          <?php
                          $issue_result  = new CS_ISSUE();
