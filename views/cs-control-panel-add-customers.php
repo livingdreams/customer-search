@@ -56,6 +56,13 @@ if($visible):
              
              
               <div class="et_pb_row">
+                 <div class="et_pb_column et_pb_column_1_2">
+                    <div class="">
+                        <label class="required-cs">Last Name</label>
+                        <input class="regular-text" name="lastname" type="text" id="lastname" required="required" value="<?= $customer_row->lastname; ?>"/>
+                    </div>
+                </div> 
+                  
                 <div class="et_pb_column et_pb_column_1_2">
                     <div class="">
                         <label>Suffix</label>
@@ -63,12 +70,7 @@ if($visible):
                     </div>
                 </div>
 
-                <div class="et_pb_column et_pb_column_1_2">
-                    <div class="">
-                        <label class="required-cs">Last Name</label>
-                        <input class="regular-text" name="lastname" type="text" id="lastname" required="required" value="<?= $customer_row->lastname; ?>"/>
-                    </div>
-                </div> 
+               
             </div> 
              
              <div class="et_pb_row">

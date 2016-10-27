@@ -34,13 +34,13 @@ if (isset($_GET['customer'])) {
                     <th><label class="required">First Name</label></th>
                     <td><input class="regular-text code" name="firstname" type="text" id="firstname" required="required" value="<?= $customer_row->firstname; ?>"/></td>
                 </tr>
-                 <tr>
-                    <th><label class="required">Suffix</label></th>
-                    <td><input class="regular-text code" name="suffix" type="text" id="suffix"  value="<?= $customer_row->suffix; ?>"/></td>
-                </tr>
                 <tr>
                     <th><label class="required">Last Name</label></th>
                     <td><input class="regular-text" name="lastname" type="text" id="lastname" required="required" value="<?= $customer_row->lastname; ?>"/></td>
+                </tr>
+                 <tr>
+                    <th><label class="required">Suffix</label></th>
+                    <td><input class="regular-text code" name="suffix" type="text" id="suffix"  value="<?= $customer_row->suffix; ?>"/></td>
                 </tr>
                 <tr>
                     <th><label class="required">Other First Name 1</label></th>
