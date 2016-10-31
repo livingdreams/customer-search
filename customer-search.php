@@ -229,6 +229,7 @@ add_shortcode('CS_RESULT_DASHBOARD', 'cs_result_dashboard');
  * Shortcode to display total points
  */
 function cs_total_points() {
+    ob_start();
     $user_id = get_current_user_id();
     $total_points = get_user_meta($user_id, '_total_points', true);
     if ($total_points)

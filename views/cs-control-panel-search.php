@@ -8,17 +8,26 @@ $existing_points = get_user_meta($user_id, '_total_points', true);
 $cus_options = get_option('cs_settings');
 $cus_number = $cus_options['cus_number'];
 $point = $cus_number["cs_point_deduct"];
+$errormsg = '';
+
+
+
 
 if (isset($_REQUEST)) {
     if ((!empty($_REQUEST['firstname'])) && (!empty($_REQUEST['lastname']))) {
         $results = $customers->prepare_frontend_search($_REQUEST['firstname'], $_REQUEST['lastname'], $_REQUEST['m_i'], $_REQUEST['streetaddress'], $_REQUEST['city'], $_REQUEST['ssn'], $_REQUEST['state'], $_REQUEST['zipcode']);
         if (!$results) {
-            ?>
-            <div class="error errorMessage">No Results Found</div>
-            <?php
+            $existing_points = get_user_meta($user_id, '_total_points', true);
+            $errormsg = 'No Results Found';
         }
     }
-}
+} ?>
+
+<blockquote>Search Credit Balance : <?php echo $existing_points = get_user_meta($user_id, '_total_points', true); ?></blockquote>
+<?php if(!empty($errormsg)){ ?>
+    <div class="error errorMessage" style="margin-bottom: 20px;">No Results Found</div>
+<?php } 
+
 if (($existing_points > 0) && ($existing_points >= $point)) {
     ?>
     <div class="cs_wrapper">
@@ -30,7 +39,6 @@ if (($existing_points > 0) && ($existing_points >= $point)) {
             </div>
 
             <div class="">	
-
                 <div class="et_pb_row">
                     <div class="et_pb_column et_pb_column_1_2">
                         <div class="">
@@ -70,8 +78,8 @@ if (($existing_points > 0) && ($existing_points >= $point)) {
                             <input id="post-search-input" type="text" value=""  name="city" size="30">
                         </div>
                     </div>
-                    
-              
+
+
                     <div class="et_pb_column et_pb_column_1_2">
                         <div class="">
                             <label class="">Last 4 digits of SSN /FEIN</label>
@@ -79,8 +87,8 @@ if (($existing_points > 0) && ($existing_points >= $point)) {
                         </div>
                     </div>
                 </div>  
-                
-               <div class="et_pb_row">  
+
+                <div class="et_pb_row">  
                     <div class="et_pb_column et_pb_column_1_2">
                         <div class="">
                             <label class="">State</label>
@@ -163,50 +171,39 @@ if (($existing_points > 0) && ($existing_points >= $point)) {
         //if ((!empty($_REQUEST['firstname'])) && (!empty($_REQUEST['lastname']))) {
         // $results = $customers->prepare_frontend_search($_REQUEST['firstname'], $_REQUEST['lastname'], $_REQUEST['m_i'], $_REQUEST['streetaddress'], $_REQUEST['city'], $_REQUEST['ssn'], $_REQUEST['state'], $_REQUEST['zipcode']);
         if ($results) {
-            if(!empty($res->suffix)){
-                $suffix = '('. $res->suffix .')';
-            }else{
-                $suffix ='';
+            $existing_points = get_user_meta($user_id, '_total_points', true); 
+            if (!empty($res->suffix)) {
+                $suffix = '(' . $res->suffix . ')';
+            } else {
+                $suffix = '';
             }
-            
             ?>
             <div id = "poststuff" class="cs-search-result">
-
-                <table>
+                <table class="search-customers">
                     <thead>
-                    <th>Name</th>
-                    <th>M.I</th>
-                    <th>Address</th>
-                    <th>Issue</th>
-                    <th>Last 4 digits of SSN /FEIN</th>
-                    <th>Business Type</th>
-                    <th>City</th>
-                    <th>Zip_Code</th>
-                    <th>State</th>
-                    <th></th>
+                    <th>Customer Details</th>
+                    <th>Business Details</th>
                     </thead>
                     <tbody>
                         <?php foreach ($results as $res) { ?>
                             <tr>
-                                <td><?php echo $res->prefix . ' ' . $res->firstname . ' ' .  $res->lastname. ' ' . $suffix ?></td>
-                                <td><?php echo $res->m_i; ?></td>
-                                <td><?php echo $res->street_address . ' ' . $res->city . ' ' . $res->zipcode; ?></td> 
-                                <td>
-                                    <?php
-                                    if (!empty($res->issue_id)) {
-                                        $issue_text = $issue->get_row('id', $res->issue_id);
-                                        if ($issue_text) {
-                                            echo $issue_text->issue_text;
-                                        }
-                                    }
-                                    ?>
-                                </td> 
-                                <td><?php echo $res->ssn; ?></td>
-                                <td><?php echo get_user_meta( $res->owner, 'Type_of_business', true );?></td>
-                                <td><?php echo get_user_meta( $res->owner, 'City', true );?></td> 
-                                <td><?php echo get_user_meta( $res->owner, 'Zip_Code', true );?></td> 
-                                <td><?php echo get_user_meta( $res->owner, 'State', true );?></td> 
-                                <td>
+                                <td><span>Name: </span><?php echo $res->prefix . ' ' . $res->firstname . ' ' . $res->lastname . ' ' . $suffix ?><br>
+                                    <span>M.I: </span><?php echo $res->m_i; ?><br>
+                                    <span>Address: </span><?php echo $res->street_address . ' ' . $res->city . ' ' . $res->zipcode; ?><br>
+
+                                    <span>Issue: </span><?php
+                            if (!empty($res->issue_id)) {
+                                $issue_text = $issue->get_row('id', $res->issue_id);
+                                if ($issue_text) {
+                                    echo $issue_text->issue_text;
+                                }
+                            }
+                            ?><br>
+
+                                    <span>Last 4 digits of SSN /FEIN: </span><?php echo $res->ssn; ?></td>
+                                <td><span>Type: </span><?php echo get_user_meta($res->owner, 'Type_of_business', true); ?><br>
+                                    <span>Address: </span><?php echo get_user_meta($res->owner, 'City', true) . ' ' . get_user_meta($res->owner, 'Zip_Code', true) . ' ' . get_user_meta($res->owner, 'State', true); ?><br>
+
                                     <?php if ($res->is_dispute != NULL) { ?> <span class="claim-msg">Claim is under review </span><?php } ?>
                                 </td>
                             </tr>
@@ -228,4 +225,3 @@ if (($existing_points > 0) && ($existing_points >= $point)) {
     <div class="error buy-points-message">Insufficient credits to search. Please buy points</div> 
 <?php }
 ?>
-
