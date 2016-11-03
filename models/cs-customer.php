@@ -204,11 +204,11 @@ if (!class_exists('CS_CUSTOMER')) {
                     (!empty($city)) || (!empty($state)) || (!empty($zipcode)) || (!empty($issueid)) || (!empty($ssn)) ) {
                 $condition = "WHERE ";
                 if (!empty($firstname)) {
-                    $condition .= " firstname = '$firstname' ";
+                    $condition .= " ((firstname = '$firstname') || (other_fn_1 ='$firstname') || (other_fn_2 ='$firstname'))";
                     $concatinate = " AND ";
                 }
                 if (!empty($lastname)) {
-                    $condition .= $concatinate . " lastname= '$lastname' ";
+                    $condition .= $concatinate . " ((lastname= '$lastname')|| (other_ln ='$lastname'))";
                     $concatinate = " AND ";
                 }
                 if (!empty($mi)) {
